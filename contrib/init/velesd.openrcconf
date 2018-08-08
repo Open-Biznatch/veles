@@ -1,0 +1,26 @@
+# /etc/conf.d/velesd: config file for /etc/init.d/velesd
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/veles/veles.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/velesd"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/velesd.pid"
+
+# Where to write velesd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/velesd"
+
+# User and group to own velesd process
+#BITCOIND_USER="veles"
+#BITCOIND_GROUP="veles"
+
+# Path to velesd executable
+#BITCOIND_BIN="/usr/bin/velesd"
+
+# Nice value to run velesd under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""

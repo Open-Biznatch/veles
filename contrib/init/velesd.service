@@ -1,0 +1,26 @@
+[Unit]
+Description=Veles's distributed currency daemon
+After=network.target
+
+[Service]
+User=veles
+Group=veles
+
+Type=forking
+PIDFile=/var/lib/velesd/velesd.pid
+
+ExecStart=/usr/bin/velesd -daemon -pid=/var/lib/velesd/velesd.pid \
+          -conf=/etc/veles/veles.conf -datadir=/var/lib/velesd
+
+ExecStop=-/usr/bin/veles-cli -conf=/etc/veles/veles.conf \
+         -datadir=/var/lib/velesd stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
