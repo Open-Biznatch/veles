@@ -2148,8 +2148,9 @@ int64_t GetBlockValue(int nHeight)
         nSubsidy = 3 * COIN;
     }
 
-    // yearly decline of production by ____% per year, projected ~33M coins max by year ____+.
-    for (int i = Params().SubsidyHalvingInterval(); i <= nHeight; i += Params().SubsidyHalvingInterval())
+    // Reduce block reward by half every Interval (# blocks)
+    int HalvingCycles = nHeight / Params().SubsidyHalvingInterval();
+    for (int i = 1; i < HalvingCycles; i++)
     {
         nSubsidy -= nSubsidy/2;
     }
