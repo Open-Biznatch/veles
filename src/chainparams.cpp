@@ -236,7 +236,7 @@ public:
         nLastPOWBlock = 200;
         nMaturity = 9;
         nMasternodeCountDrift = 4;
-        nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
+        nModifierUpdateBlock = 1; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMasternodeCollateral = 1200;
         nMaxMoneyOut = 12500000 * COIN;
         nZerocoinStartHeight = 201576;
@@ -247,11 +247,11 @@ public:
         nBlockLastGoodCheckpoint = 9891730; //Last valid accumulator checkpoint
         
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1515616140;
-        genesis.nNonce = 79855;
+        genesis.nTime = 1535253333;
+        genesis.nNonce = 190263;
 
 	    hashGenesisBlock = genesis.GetHash();
-        //assert(hashGenesisBlock == uint256("0x000007cff63ef602a51bf074e384b3516f0dd202f14d52f7c8c9b1af9423ab2e"));
+        //assert(hashGenesisBlock == uint256("00000a0b558679156b2378cb88e5bbeb4581bdd2ee47def0d857072bde152eb5"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
