@@ -136,7 +136,7 @@ public:
         /** Height or Time Based Activations **/
         nLastPOWBlock = 200;
         nModifierUpdateBlock = 9999999;
-        nZerocoinStartHeight = 1;
+        nZerocoinStartHeight = 10000;
         nAccumulatorStartHeight = 1;
         nZerocoinStartTime = 1535253333; // Time (GMT): Thursday, 10 May 2018 13:19:53 - (Accumulator start time - requires block height 40000)
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
@@ -181,7 +181,7 @@ public:
 		vSeeds.push_back(CDNSSeedData("seeds.veles.org", "seeds.veles.org")); // Seeder
         */
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 53);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 70); // Start with V
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 30);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x33).convert_to_container<std::vector<unsigned char> >();
@@ -253,7 +253,7 @@ public:
         nModifierUpdateBlock = 1; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMasternodeCollateral = 1200;
         nMaxMoneyOut = 12500000 * COIN;
-        nZerocoinStartHeight = 1;
+        nZerocoinStartHeight = 10000;
         nZerocoinStartTime = 1535253333;
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = 9908000; //Trigger a recalculation of accumulators
@@ -274,7 +274,7 @@ public:
         */
 
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet veles addresses start with 'x' or 'y'
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet veles addresses start with 'T' or 'y'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet veles script addresses start with '8' or '9'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);     // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         // Testnet veles BIP32 pubkeys start with 'DRKV'

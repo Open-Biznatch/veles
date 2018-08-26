@@ -16,7 +16,7 @@
 
 #include <math.h>
 
-// Crypostle Difficulty Retargeting 1.0 - CalculateNextWorkRequired
+// Crypostle Difficulty Retargeting 1.1 - CalculateNextWorkRequired
 unsigned int CalculateNextWorkRequiredCrypostle(const CBlockIndex* pindexLast, int64_t nFirstBlockTime)
 {
     //if (params.fPowNoRetargeting)
@@ -25,10 +25,11 @@ unsigned int CalculateNextWorkRequiredCrypostle(const CBlockIndex* pindexLast, i
     // Limit adjustment step
     int64_t nActualTimespan = pindexLast->GetBlockTime() - nFirstBlockTime;
     //LogPrintf("  nActualTimespan = %d  before bounds\n", nActualTimespan);
-    if (nActualTimespan < Params().TargetSpacing())
-        nActualTimespan = Params().TargetSpacing();
-    if (nActualTimespan > Params().TargetSpacing())
-        nActualTimespan = Params().TargetSpacing();
+    int64_t nTargetTimespan = Params().TargetSpacing()/40;
+    if (nActualTimespan < nTargetTimespan)
+        nActualTimespan = nTargetTimespan;
+    if (nActualTimespan > nTargetTimespan)
+        nActualTimespan = nTargetTimespan;
 
     // Retarget
     const uint256 bnPowLimit = uint256(Params().ProofOfWorkLimit());
@@ -37,8 +38,9 @@ unsigned int CalculateNextWorkRequiredCrypostle(const CBlockIndex* pindexLast, i
     bnNew.SetCompact(pindexLast->nBits);
     bnOld = bnNew;
     bnNew *= nActualTimespan;
-    bnNew /= Params().TargetSpacing();
+    bnNew /= Params().TargetSpacing() * 2;
 
+    // Limit
     if (bnNew > bnPowLimit)
     {
         bnNew = bnPowLimit;
@@ -55,7 +57,7 @@ unsigned int CalculateNextWorkRequiredCrypostle(const CBlockIndex* pindexLast, i
     return bnNew.GetCompact();
 }
 
-// Crypostle Difficulty Retargeting 1.0 - GetNextWorkRequired
+// Crypostle Difficulty Retargeting 1.1 - GetNextWorkRequired
 unsigned int GetNextWorkRequiredCrypostle(const CBlockIndex* pindexLast, const CBlockHeader *pblock)
 {
     unsigned int nProofOfWorkLimit = uint256(Params().ProofOfWorkLimit()).GetCompact();
