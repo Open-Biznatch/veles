@@ -37,7 +37,7 @@ unsigned int CalculateNextWorkRequiredCrypostle(const CBlockIndex* pindexLast, i
     bnNew.SetCompact(pindexLast->nBits);
     bnOld = bnNew;
     bnNew *= nActualTimespan;
-    bnNew /= Params().TargetSpacing() * 2;
+    bnNew /= Params().TargetSpacing();
 
     if (bnNew > bnPowLimit)
     {

@@ -136,9 +136,9 @@ public:
         /** Height or Time Based Activations **/
         nLastPOWBlock = 200;
         nModifierUpdateBlock = 9999999;
-        nZerocoinStartHeight = 50001;
+        nZerocoinStartHeight = 1;
         nAccumulatorStartHeight = 1;
-        nZerocoinStartTime = 1525958393; // Time (GMT): Thursday, 10 May 2018 13:19:53 - (Accumulator start time - requires block height 40000)
+        nZerocoinStartTime = 1535253333; // Time (GMT): Thursday, 10 May 2018 13:19:53 - (Accumulator start time - requires block height 40000)
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = ~1; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = ~1; //First block that bad serials emerged
@@ -193,7 +193,7 @@ public:
 
         fRequireRPCPassword = true;
         fMiningRequiresPeers = true;
-        fAllowMinDifficultyBlocks = false;
+        fAllowMinDifficultyBlocks = true;
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
@@ -246,15 +246,15 @@ public:
         nSubsidyHalvingInterval = 525600; // Approx 2 years of blocks @ 2 minutes
         nMinerThreads = 0;
         nTargetTimespan = 1 * 60; // Veles: 1 day
-        nTargetSpacing = 2 * 60;  // Veles: 1 minute
+        nTargetSpacing = 2 * 60;  // Veles: 2 minute
         nLastPOWBlock = 200;
         nMaturity = 9;
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 1; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMasternodeCollateral = 1200;
         nMaxMoneyOut = 12500000 * COIN;
-        nZerocoinStartHeight = 201576;
-        nZerocoinStartTime = 1524711188;
+        nZerocoinStartHeight = 1;
+        nZerocoinStartTime = 1535253333;
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = 9908000; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = 9891737; //First block that bad serials emerged
@@ -374,7 +374,7 @@ public:
         fRequireRPCPassword = false;
         fMiningRequiresPeers = false;
         fDefaultConsistencyChecks = true;
-        fAllowMinDifficultyBlocks = false;
+        fAllowMinDifficultyBlocks = true;
         fMineBlocksOnDemand = true;
     }
 
