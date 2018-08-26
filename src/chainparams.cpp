@@ -53,30 +53,30 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 //    timestamp before)
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
-    boost::assign::map_list_of(0, uint256("0x0000053e8405e8e6b7df1d703dc524b73d956e39755fadf45ef9ac286465dac6"));
+    boost::assign::map_list_of(0, uint256(""));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1514407942, // * UNIX timestamp of last checkpoint block
-    1,    // * total number of transactions between genesis and last checkpoint
+    0, // * UNIX timestamp of last checkpoint block
+    0,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
-    2        // * estimated number of transactions per day after checkpoint
+    0        // * estimated number of transactions per day after checkpoint
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
     boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1454124731,
     0,
-    250};
+    0,
+    0};
 
 static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
     boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataRegtest = {
     &mapCheckpointsRegtest,
-    1454124731,
     0,
-    100};
+    0,
+    0};
 
 libzerocoin::ZerocoinParams* CChainParams::Zerocoin_Params() const
 {
@@ -99,24 +99,25 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0x21;
-        pchMessageStart[1] = 0xa4;
-        pchMessageStart[2] = 0xbd;
-        pchMessageStart[3] = 0xa9;
+        pchMessageStart[0] = 0x22;
+        pchMessageStart[1] = 0xb1;
+        pchMessageStart[2] = 0xa2;
+        pchMessageStart[3] = 0xc1;
         vAlertPubKey = ParseHex("0000098d3ba6ba6e7423fa5cbd6a89e0a9a5348f88d332b44a5cb1a8b7ed2c1eaa335fc8dc4f012cb8241cc0bdafd6ca70c5f5448916e4e6f511bcd746ed57dc50");
         nDefaultPort = 25521;
         bnProofOfWorkLimit = ~uint256(0) >> 20; // Veles starting difficulty is 1 / 2^12
-        nSubsidyHalvingInterval = 999999;
+        nSubsidyHalvingInterval = 525600; // Approx 2 years of blocks @ 2 minutes
         nMaxReorganizationDepth = 100;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
         nTargetTimespan = 1 * 60; // Veles: 1 day
-        nTargetSpacing = 1 * 60;  // Veles: 1 minute
+        nTargetSpacing = 2 * 60;  // Veles: 2 minute
         nMaturity = 9;
         nMasternodeCountDrift = 20;
-        nMaxMoneyOut = 5000000 * COIN;
+        nMasternodeCollateral = 1200;
+        nMaxMoneyOut = 12500000 * COIN;
 
         /** Height or Time Based Activations **/
         nLastPOWBlock = 200;
@@ -133,41 +134,37 @@ public:
          * Build the genesis block. Note that the output of the genesis coinbase cannot
          * be spent as it did not originally exist in the database.
          *
-         * CBlock(hash=00000ffd590b14, ver=1, hashPrevBlock=00000000000000, hashMerkleRoot=e0028e, nTime=1390095618, nBits=1e0ffff0, nNonce=28917698, vtx=1)
-         *   CTransaction(hash=e0028e, ver=1, vin.size=1, vout.size=1, nLockTime=0)
-         *     CTxIn(COutPoint(000000, -1), coinbase 04ffff001d01044c5957697265642030392f4a616e2f3230313420546865204772616e64204578706572696d656e7420476f6573204c6976653a204f76657273746f636b2e636f6d204973204e6f7720416363657074696e6720426974636f696e73)
-         *     CTxOut(nValue=50.00000000, scriptPubKey=0xA9037BAC7050C479B121CF)
-         *   vMerkleTree: e0028e
+        algorithm: quark
+        merkle hash: 7e4af0e773c2c56443bacbab205bb5fb961370560ea3c85b90538022370d863c
+        pszTimestamp: Veles started from a bottom - Aug 25, 2018
+        pubkey: 04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1
+        time: 1535253333
+        bits: 0x1e0ffff0
+        nonce: 190263
+        genesis hash: 00000a0b558679156b2378cb88e5bbeb4581bdd2ee47def0d857072bde152eb5
          */
-        const char* pszTimestamp = "World Bank predicts 7.3% growth for India - 17-APRIL-2018";
+        const char* pszTimestamp = "Veles started from a bottom - Aug 25, 2018";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 250 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("04c10e83b2703ccf322f7dbd62dd5855ac7c10bd055814ce121ba32607d573b8810c02c0582aed05b4deb9c4b77b26d92428c61256cd42774babea0a073b2ed0c9") << OP_CHECKSIG;
+        txNew.vout[0].nValue = 1 * COIN;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1523965353;
+        genesis.nTime = 1535253333;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 891251;
+        genesis.nNonce = 190263;
 		
 
 		hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x0000053e8405e8e6b7df1d703dc524b73d956e39755fadf45ef9ac286465dac6"));
-        assert(genesis.hashMerkleRoot == uint256("0x39ea0c632a0734a438a864a510d102a313ec94e649775679159ee7489119e8d6"));
+        assert(hashGenesisBlock == uint256("00000a0b558679156b2378cb88e5bbeb4581bdd2ee47def0d857072bde152eb5"));
+        assert(genesis.hashMerkleRoot == uint256("7e4af0e773c2c56443bacbab205bb5fb961370560ea3c85b90538022370d863c"));
 		
         /*
 		vSeeds.push_back(CDNSSeedData("seeds.veles.org", "seeds.veles.org")); // Seeder
-        vSeeds.push_back(CDNSSeedData("209.250.241.176", "209.250.241.176"));   // Single node address
-        vSeeds.push_back(CDNSSeedData("209.250.243.131", "209.250.243.131"));   // Single node address
-        vSeeds.push_back(CDNSSeedData("45.77.239.108", "45.77.239.108"));       // Single node address
-		vSeeds.push_back(CDNSSeedData("45.32.235.211", "45.32.235.211"));       // Single node address
-		vSeeds.push_back(CDNSSeedData("107.191.44.102", "107.191.44.102"));     // Single node address
-		vSeeds.push_back(CDNSSeedData("108.61.188.67", "108.61.188.67"));       // Single node address
-		vSeeds.push_back(CDNSSeedData("140.82.34.3", "140.82.34.3"));         // Block Explorer
         */
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 53);
@@ -191,9 +188,9 @@ public:
         fHeadersFirstSyncingActive = false;
 
         nPoolMaxTransactions = 3;
-        strSporkKey = "04d45416e4a64b1b051e2a2ebd80ced5efe148cf5fbcb70e56860957675a2da1a21fd522c42c1ed18a1ec42641589a09cf3f58678d213825dc21798183a005a984";
+        strSporkKey = "04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1";
         strObfuscationPoolDummyAddress = "NWQxVEARwCDdUcnH3pzJ966jwuzjm4oGx9";
-        nStartMasternodePayments = 1403728576; //Wed, 25 Jun 2014 20:36:16 GMT
+        nStartMasternodePayments = 1535253333; //GMT: Sunday, August 26, 2018 3:15:33 AM
 
         /** Zerocoin */
         zerocoinModulus = "0xc95577b6dce0049b0a20c779af38079355abadde1a1d80c353f6cb697a7ae5a087bad39caa5798478551d0f9d91e6267716506f32412de1d19d17588765eb9502b85c6a18abdb05791cfd8b734e960281193705eeece210920cc922b3af3ceb178bf12c22eb565d5767fbf19545639be8953c2c38ffad41f3371e4aac750ac2d7bd614b3faabb453081d5d88fdbb803657a980bc93707e4b14233a2358c97763bf28f7c933206071477e8b371f229bc9ce7d6ef0ed7163aa5dfe13bc15f7816348b328fa2c1e69d5c88f7b94cee7829d56d1842d77d7bb8692e9fc7b7db059836500de8d57eb43c345feb58671503b932829112941367996b03871300f25efb5";
@@ -227,19 +224,21 @@ public:
         pchMessageStart[1] = 0x76;
         pchMessageStart[2] = 0x65;
         pchMessageStart[3] = 0xba;
-        vAlertPubKey = ParseHex("000010e83b2703ccf322f7dbd62dd5855ac7c10bd055814ce121ba32607d573b8810c02c0582aed05b4deb9c4b77b26d92428c61256cd42774babea0a073b2ed0c9");
+        vAlertPubKey = ParseHex("04e9a216a2eea74215e5fa340671eeae4a0cb014f7454643283789f78cef0d63f860059a612e9c9342dcea2c469ede0f275464648b5c93e3f7127ee3a3fa1ff353");
         nDefaultPort = 25522;
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
+        nSubsidyHalvingInterval = 525600; // Approx 2 years of blocks @ 2 minutes
         nMinerThreads = 0;
         nTargetTimespan = 1 * 60; // Veles: 1 day
-        nTargetSpacing = 1 * 60;  // Veles: 1 minute
+        nTargetSpacing = 2 * 60;  // Veles: 1 minute
         nLastPOWBlock = 200;
-        nMaturity = 15;
+        nMaturity = 9;
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
-        nMaxMoneyOut = 43199500 * COIN;
+        nMasternodeCollateral = 1200;
+        nMaxMoneyOut = 12500000 * COIN;
         nZerocoinStartHeight = 201576;
         nZerocoinStartTime = 1524711188;
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
@@ -258,8 +257,6 @@ public:
         vSeeds.clear();
         /*
         vSeeds.push_back(CDNSSeedData("45.76.61.28", "207.148.0.129"));         // Single node address
-        vSeeds.push_back(CDNSSeedData("209.250.240.94", "45.77.239.30"));       // Single node address
-        vSeeds.push_back(CDNSSeedData("45.77.176.204", "45.76.226.204"));       // Single node address
         */
 
 
@@ -284,9 +281,9 @@ public:
         fTestnetToBeDeprecatedFieldRPC = true;
 
         nPoolMaxTransactions = 2;
-        strSporkKey = "04188441e39d99aa69068ee07d26980f459b84465bbd765c6ee15d1aec5b76b5aebb01b24be184a1d3a12af61276549d96cc9499d909f8afc183132837d18d643d";
+        strSporkKey = "04e9a216a2eea74215e5fa340671eeae4a0cb014f7454643283789f78cef0d63f860059a612e9c9342dcea2c469ede0f275464648b5c93e3f7127ee3a3fa1ff353";
         strObfuscationPoolDummyAddress = "xp87cG8UEQgzs1Bk67Yk884C7pnQfAeo7q";
-        nStartMasternodePayments = 1420837558; //Fri, 09 Jan 2015 21:05:58 GMT
+        nStartMasternodePayments = 1535253333; //GMT: Sunday, August 26, 2018 3:15:33 AM
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
                                        // here because we only have a 8 block finalization window on testnet
     }

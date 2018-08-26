@@ -2128,86 +2128,31 @@ double ConvertBitsToDouble(unsigned int nBits)
     return dDiff;
 }
 
-double GetDynamicBlockReward31(int nHeight)
-{
-        /* 
-        Dynamic Block Reward 3.1 - (C) 2018 Profit Hunters Coin
-            https://github.com/ProfitHuntersCoin/
-        */
-
-        double nDifficulty = GetDifficulty();
-        double nNetworkHashPS = GetPoWMHashPS();
-        int nSubsidyMin = 1;
-        int nSubsidyMax = 1;
-        double nSubsidyBase = nSubsidyMin;
-        int nSubsidyMod = 0;
-
-        /* ------ Pre-Mining Phase: Block #0 (Start) ------ */
-        if (nHeight == 0)
-        {
-            nSubsidyMax = 1;
-        }
-        /* ------ Initial Mining Phase: Block #1 Up to 50000 ------ */
-        if (nHeight > 0)
-        {
-            nSubsidyMax = 100;
-        }
-        /* ------ Initial Mining Phase: Block #50001 Up to 12000 ------ */
-        if (nHeight > 50000)
-        {
-            nSubsidyMax = 50;
-        }
-        /* ------ Regular Mining Phase: Block #120001 Up to 15000 ------ */
-        if (nHeight > 100000)
-        {
-            nSubsidyMax = 25;
-        }
-        /* ------ Regular Mining Phase: Block #15001 Up to 200000 ------ */
-        if (nHeight > 150000)
-        {
-            nSubsidyMax = 12.5;
-        }
-        /* ------ Regular Mining Phase: Block #20001 Up to 200000 ------ */
-        if (nHeight > 200000)
-        {
-            nSubsidyMax = 6.25;
-        }
-        /* ------ Regular Mining Phase: Block #25001 Up to 250000 ------ */
-        if (nHeight > 250000)
-        {
-            nSubsidyMax = 3.125;
-        }
-
-        nSubsidyMod = nNetworkHashPS / nDifficulty;
-        nSubsidyBase = nSubsidyMax - nSubsidyMod;
-
-        /* ------ Max ------ */
-        if (nSubsidyBase > nSubsidyMax)
-        {
-            nSubsidyBase = nSubsidyMax;
-        }
-        /* ------ Min ------ */
-        if (nSubsidyBase < nSubsidyMin)
-        {
-            nSubsidyBase = nSubsidyMin;
-        }
-
-        return nSubsidyBase;
-
-}
 
 int64_t GetBlockValue(int nHeight)
 {
-    int64_t nSubsidy = 0;
 
-    /*
-    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        if (nHeight < 200 && nHeight > 0)
-            return 250000 * COIN;
+    int64_t nSubsidy = 1;
+
+    if (nHeight == 0) {
+        nSubsidy = 375000 * COIN; // Premine
+    } else if (nHeight > 0 && nHeight <= 25000) {
+        nSubsidy = 1 * COIN;
+    } else if (nHeight > 25000 && nHeight <= 100000) {
+        nSubsidy = 16 * COIN;
+    } else if (nHeight > 100000 && nHeight <= 250000) {
+        nSubsidy = 13 * COIN;
+    } else if (nHeight > 250000 && nHeight <= 1000000) {
+        nSubsidy = 6 * COIN;
+    } else if (nHeight > 1000000) {
+        nSubsidy = 3 * COIN;
     }
-    */
 
-    nSubsidy = GetDynamicBlockReward31(nHeight);
+    // yearly decline of production by ____% per year, projected ~33M coins max by year ____+.
+    for (int i = Params().SubsidyHalvingInterval(); i <= nHeight; i += Params().SubsidyHalvingInterval())
+    {
+        nSubsidy -= nSubsidy/2;
+    }
 
     return nSubsidy;
 }
@@ -2215,22 +2160,14 @@ int64_t GetBlockValue(int nHeight)
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
 {
     int64_t ret = 0;
-
-	//Testnet 
-    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        if (nHeight < 200)
-            return 0;
-    }
 	
-	// 90% for Masternodes
+	// 74% for Masternodes, 24% Staking, 2% dev (sporks)
 	if (nHeight == 0) {
 	      ret = blockValue  / 100 * 0;
 	} else if (nHeight > 1) {
-		  ret = blockValue  / 100 * 90;
-		
+		  ret = blockValue  / 100 * 74;
 	}
 			
-	
     return ret;
 }
 
