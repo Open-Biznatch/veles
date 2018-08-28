@@ -67,14 +67,15 @@ void CActiveMasternode::ManageStatus()
             service = CService(strMasterNodeAddr);
         }
 
+        int mainnetDefaultPort = Params(CBaseChainParams::MAIN).GetDefaultPort();
         if (Params().NetworkID() == CBaseChainParams::MAIN) {
-            if (service.GetPort() != 6250) {
-                notCapableReason = strprintf("Invalid port: %u - only 6250 is supported on mainnet.", service.GetPort());
+            if (service.GetPort() != mainnetDefaultPort) {
+                notCapableReason = strprintf("Invalid port: %u - only %d is supported on mainnet.", service.GetPort(), mainnetDefaultPort);
                 LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", notCapableReason);
                 return;
             }
-        } else if (service.GetPort() == 6250) {
-            notCapableReason = strprintf("Invalid port: %u - 6250 is only supported on mainnet.", service.GetPort());
+        } else if (service.GetPort() == mainnetDefaultPort) {
+            notCapableReason = strprintf("Invalid port: %u - %d is only supported on mainnet.", service.GetPort(), mainnetDefaultPort);
             LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", notCapableReason);
             return;
         }

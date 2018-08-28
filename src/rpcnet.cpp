@@ -178,7 +178,7 @@ Value addnode(const Array& params, bool fHelp)
             "1. \"node\"     (string, required) The node (see getpeerinfo for nodes)\n"
             "2. \"command\"  (string, required) 'add' to add a node to the list, 'remove' to remove a node from the list, 'onetry' to try a connection to the node once\n"
             "\nExamples:\n" +
-            HelpExampleCli("addnode", "\"192.168.0.6:6250\" \"onetry\"") + HelpExampleRpc("addnode", "\"192.168.0.6:6250\", \"onetry\""));
+            HelpExampleCli("addnode", "\"192.168.0.6:25521\" \"onetry\"") + HelpExampleRpc("addnode", "\"192.168.0.6:25521\", \"onetry\""));
 
     string strNode = params[0].get_str();
 
@@ -226,7 +226,7 @@ Value getaddednodeinfo(const Array& params, bool fHelp)
             "    \"connected\" : true|false,          (boolean) If connected\n"
             "    \"addresses\" : [\n"
             "       {\n"
-            "         \"address\" : \"192.168.0.201:6250\",  (string) The veles server host and port\n"
+            "         \"address\" : \"192.168.0.201:25221\",  (string) The veles server host and port\n"
             "         \"connected\" : \"outbound\"           (string) connection, inbound or outbound\n"
             "       }\n"
             "       ,...\n"
