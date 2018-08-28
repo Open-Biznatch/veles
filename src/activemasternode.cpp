@@ -80,15 +80,24 @@ void CActiveMasternode::ManageStatus()
             return;
         }
 
-        LogPrintf("CActiveMasternode::ManageStatus() - Checking inbound connection to '%s'\n", service.ToString());
+        const char* pszDest;
+        //
+        // Initiate outbound network connection
+        //
+        boost::this_thread::interruption_point();
+        if (!pszDest)
+        {
+            LogPrintf("CActiveMasternode::ManageStatus() - Checking inbound connection to '%s'\n", service.ToString());
 
-        CNode* pnode = ConnectNode((CAddress)service, NULL, false);
-        if (!pnode) {
-            notCapableReason = "Could not connect to " + service.ToString();
-            LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", notCapableReason);
-            return;
+            CNode* pnode = ConnectNode((CAddress)service, pszDest, false);
+            if (!pnode)
+            {
+                notCapableReason = "Could not connect to " + service.ToString();
+                LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", notCapableReason);
+                return;
+            }
+            pnode->Release();
         }
-        pnode->Release();
 
         // Choose coins to use
         CPubKey pubKeyCollateralAddress;
