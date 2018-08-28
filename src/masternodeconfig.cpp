@@ -60,22 +60,29 @@ bool CMasternodeConfig::read(std::string& strErr)
             }
         }
 
-        if (Params().NetworkID() == CBaseChainParams::MAIN) {
-            if (CService(ip).GetPort() != 6250) {
+        int mainnetDefaultPort = Params(CBaseChainParams::MAIN).GetDefaultPort();
+        int testDefaultPort = Params(CBaseChainParams::TESTNET).GetDefaultPort();
+
+        if (Params().NetworkID() == CBaseChainParams::MAIN)
+        {
+            if (CService(ip).GetPort() != mainnetDefaultPort)
+            {
                 strErr = _("Invalid port detected in masternode.conf") + "\n" +
-                         strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"" + "\n" +
-                         _("(must be 6250 for mainnet)");
+                        strprintf(_("Port: %d"), port) + "\n" +
+                        strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"" + "\n" +
+                        strprintf(_("(must be %d for mainnet)"), mainnetDefaultPort);
                 streamConfig.close();
                 return false;
             }
-        } else if (CService(ip).GetPort() == 6250) {
+        }
+        else if (CService(ip).GetPort() == testDefaultPort)
+        {
             strErr = _("Invalid port detected in masternode.conf") + "\n" +
-                     strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"" + "\n" +
-                     _("(6250 could be used only on mainnet)");
+                    strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"" + "\n" +
+                    strprintf(_("(%d could be used only on mainnet)"), testDefaultPort);
             streamConfig.close();
             return false;
         }
-
 
         add(alias, ip, privKey, txHash, outputIndex);
     }
