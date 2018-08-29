@@ -136,9 +136,9 @@ public:
         /** Height or Time Based Activations **/
         nLastPOWBlock = 200;
         nModifierUpdateBlock = 9999999;
-        nZerocoinStartHeight = 10000;
-        nAccumulatorStartHeight = 1;
-        nZerocoinStartTime = 1535253333; // Time (GMT): Thursday, 10 May 2018 13:19:53 - (Accumulator start time - requires block height 40000)
+        nZerocoinStartHeight = 1000;
+        nAccumulatorStartHeight = 1000;
+        nZerocoinStartTime = 1535518593; // Time (GMT): Thursday, 10 May 2018 13:19:53 - (Accumulator start time - requires block height 40000)
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = ~1; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = ~1; //First block that bad serials emerged
@@ -148,16 +148,19 @@ public:
          * Build the genesis block. Note that the output of the genesis coinbase cannot
          * be spent as it did not originally exist in the database.
          *
-        algorithm: quark
-        merkle hash: 7e4af0e773c2c56443bacbab205bb5fb961370560ea3c85b90538022370d863c
-        pszTimestamp: Veles started from a bottom - Aug 25, 2018
-        pubkey: 04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1
-        time: 1535253333
-        bits: 0x1e0ffff0
-        nonce: 190263
-        genesis hash: 00000a0b558679156b2378cb88e5bbeb4581bdd2ee47def0d857072bde152eb5
-         */
-        const char* pszTimestamp = "Veles started from a bottom - Aug 25, 2018";
+            algorithm: quark
+            merkle hash: 369630c13a4ae5585d68ada9bfa6a78a58c4a5a6757d8c2fd181a06d092e174a
+            pszTimestamp: Veles started from a bottom - Aug 28, 2018
+            pubkey: 04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1
+            time: 1535518593
+            bits: 0x1e0ffff0
+            nonce: 904548
+            genesis hash: 00000a0aff848daa01ea6555c8e357ed5092b806b7de4f3b7e03d5ee27e5b41b
+            python gen.py -a quark -t 1535518593 -z "Veles started from a bottom - Aug 28, 2018" -p "04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1" -v 100000000
+         *
+        **/
+
+        const char* pszTimestamp = "Veles started from a bottom - Aug 28, 2018";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -168,18 +171,16 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1535253333;
+        genesis.nTime = 1535518593;
         genesis.nBits = 0x1e0ffff0;
         genesis.nNonce = 190263;
 		
-
 		hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("00000a0b558679156b2378cb88e5bbeb4581bdd2ee47def0d857072bde152eb5"));
-        assert(genesis.hashMerkleRoot == uint256("7e4af0e773c2c56443bacbab205bb5fb961370560ea3c85b90538022370d863c"));
+        assert(hashGenesisBlock == uint256("00000a0aff848daa01ea6555c8e357ed5092b806b7de4f3b7e03d5ee27e5b41b"));
+        assert(genesis.hashMerkleRoot == uint256("369630c13a4ae5585d68ada9bfa6a78a58c4a5a6757d8c2fd181a06d092e174a"));
 		
-        /*
-		vSeeds.push_back(CDNSSeedData("seeds.veles.org", "seeds.veles.org")); // Seeder
-        */
+		//vSeeds.push_back(CDNSSeedData("seeds.veles.org", "seeds.veles.org")); // Seeder
+        vSeeds.push_back(CDNSSeedData("95.179.155.3", "95.179.155.3"));         // Single node address
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 70); // Start with V
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 30);
@@ -203,7 +204,7 @@ public:
 
         nPoolMaxTransactions = 3;
         strSporkKey = "04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1";
-        strObfuscationPoolDummyAddress = "NWQxVEARwCDdUcnH3pzJ966jwuzjm4oGx9";
+        strObfuscationPoolDummyAddress = "CWQxVEARwCDdUcnH3pzJ966jwuzjm4oGx9";
         nStartMasternodePayments = 1535253333; //GMT: Sunday, August 26, 2018 3:15:33 AM
 
         /** Zerocoin */
@@ -269,10 +270,8 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        /*
-        vSeeds.push_back(CDNSSeedData("45.76.61.28", "207.148.0.129"));         // Single node address
-        */
 
+        vSeeds.push_back(CDNSSeedData("95.179.155.3", "95.179.155.3"));         // Single node address
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet veles addresses start with 'T' or 'y'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet veles script addresses start with '8' or '9'
