@@ -80,6 +80,7 @@ void CActiveMasternode::ManageStatus()
             return;
         }
 
+        /*  to fix (won't connect)
         LogPrintf("CActiveMasternode::ManageStatus() - Checking inbound connection to '%s'\n", service.ToString());
 
         CService addr = service;
@@ -93,6 +94,7 @@ void CActiveMasternode::ManageStatus()
             return;
         }
         pnode->Release();
+        */
 
         // Choose coins to use
         CPubKey pubKeyCollateralAddress;
