@@ -149,14 +149,15 @@ public:
          * be spent as it did not originally exist in the database.
          *
             algorithm: quark
-            merkle hash: 369630c13a4ae5585d68ada9bfa6a78a58c4a5a6757d8c2fd181a06d092e174a
-            pszTimestamp: Veles started from a bottom - Aug 28, 2018
+            merkle hash: 61cec95162d141df8ddbad7b5026e6f22c4ea795930b1d94d584a6c29f143542
+            pszTimestamp: Veles started from a bottom - Aug 30, 2018
             pubkey: 04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1
-            time: 1535518593
+            time: 1535666264
             bits: 0x1e0ffff0
-            nonce: 904548
-            genesis hash: 00000a0aff848daa01ea6555c8e357ed5092b806b7de4f3b7e03d5ee27e5b41b
-            python gen.py -a quark -t 1535518593 -z "Veles started from a bottom - Aug 28, 2018" -p "04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1" -v 100000000
+            nonce: 201746
+            genesis hash: 0000017d88681d790f7e041b977c87f111c69aa70d9b7564908ebf96cd736b1f
+
+            python gen.py -a quark -t 1535666264 -z "Veles started from a bottom - Aug 30, 2018" -p "04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1" -v 100000000
          *
         **/
 
@@ -171,13 +172,13 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1535518593;
+        genesis.nTime = 1535666264;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 904548;
+        genesis.nNonce = 201746;
 		
 		hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("00000a0aff848daa01ea6555c8e357ed5092b806b7de4f3b7e03d5ee27e5b41b"));
-        assert(genesis.hashMerkleRoot == uint256("369630c13a4ae5585d68ada9bfa6a78a58c4a5a6757d8c2fd181a06d092e174a"));
+        assert(hashGenesisBlock == uint256("0000017d88681d790f7e041b977c87f111c69aa70d9b7564908ebf96cd736b1f"));
+        assert(genesis.hashMerkleRoot == uint256("61cec95162d141df8ddbad7b5026e6f22c4ea795930b1d94d584a6c29f143542"));
 		
 		//vSeeds.push_back(CDNSSeedData("seeds.veles.org", "seeds.veles.org")); // Seeder
         vSeeds.push_back(CDNSSeedData("95.179.155.3", "95.179.155.3"));         // Single node address
@@ -204,8 +205,8 @@ public:
 
         nPoolMaxTransactions = 3;
         strSporkKey = "04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1";
-        strObfuscationPoolDummyAddress = "CWQxVEARwCDdUcnH3pzJ966jwuzjm4oGx9";
-        nStartMasternodePayments = 1535253333; //GMT: Sunday, August 26, 2018 3:15:33 AM
+        strObfuscationPoolDummyAddress = "VWQxVEARwCDdUcnH3pzJ966jwuzjm4oGx9";
+        nStartMasternodePayments = 100;
 
         /** Zerocoin */
         zerocoinModulus = "0xc95577b6dce0049b0a20c779af38079355abadde1a1d80c353f6cb697a7ae5a087bad39caa5798478551d0f9d91e6267716506f32412de1d19d17588765eb9502b85c6a18abdb05791cfd8b734e960281193705eeece210920cc922b3af3ceb178bf12c22eb565d5767fbf19545639be8953c2c38ffad41f3371e4aac750ac2d7bd614b3faabb453081d5d88fdbb803657a980bc93707e4b14233a2358c97763bf28f7c933206071477e8b371f229bc9ce7d6ef0ed7163aa5dfe13bc15f7816348b328fa2c1e69d5c88f7b94cee7829d56d1842d77d7bb8692e9fc7b7db059836500de8d57eb43c345feb58671503b932829112941367996b03871300f25efb5";
@@ -296,7 +297,7 @@ public:
         nPoolMaxTransactions = 2;
         strSporkKey = "04e9a216a2eea74215e5fa340671eeae4a0cb014f7454643283789f78cef0d63f860059a612e9c9342dcea2c469ede0f275464648b5c93e3f7127ee3a3fa1ff353";
         strObfuscationPoolDummyAddress = "xp87cG8UEQgzs1Bk67Yk884C7pnQfAeo7q";
-        nStartMasternodePayments = 1535253333; //GMT: Sunday, August 26, 2018 3:15:33 AM
+        nStartMasternodePayments = 100; //GMT: Sunday, August 26, 2018 3:15:33 AM
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
                                        // here because we only have a 8 block finalization window on testnet
     }

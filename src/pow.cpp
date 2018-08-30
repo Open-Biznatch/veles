@@ -25,7 +25,7 @@ unsigned int CalculateNextWorkRequiredCrypostle(const CBlockIndex* pindexLast, i
     // Limit adjustment step
     int64_t nActualTimespan = pindexLast->GetBlockTime() - nFirstBlockTime;
     //LogPrintf("  nActualTimespan = %d  before bounds\n", nActualTimespan);
-    int64_t nTargetTimespan = Params().TargetSpacing()/40;
+    int64_t nTargetTimespan = Params().TargetSpacing()/20;  //changed for quark algo
     if (nActualTimespan < nTargetTimespan)
         nActualTimespan = nTargetTimespan;
     if (nActualTimespan > nTargetTimespan)
