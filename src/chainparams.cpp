@@ -297,7 +297,7 @@ public:
         nPoolMaxTransactions = 2;
         strSporkKey = "04e9a216a2eea74215e5fa340671eeae4a0cb014f7454643283789f78cef0d63f860059a612e9c9342dcea2c469ede0f275464648b5c93e3f7127ee3a3fa1ff353";
         strObfuscationPoolDummyAddress = "xp87cG8UEQgzs1Bk67Yk884C7pnQfAeo7q";
-        nStartMasternodePayments = 100; //GMT: Sunday, August 26, 2018 3:15:33 AM
+        nStartMasternodePayments = 100;
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
                                        // here because we only have a 8 block finalization window on testnet
     }
