@@ -161,7 +161,7 @@ public:
          *
         **/
 
-        const char* pszTimestamp = "Veles started from a bottom - Aug 28, 2018";
+        const char* pszTimestamp = "Veles started from a bottom - Aug 30, 2018";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
