@@ -100,12 +100,12 @@ class ProxyTest(BitcoinTestFramework):
         rv.append(cmd)
 
         # Test: outgoing onion connection through node
-        node.addnode("velesvj7kcklujarx.onion:6250", "onetry")
+        node.addnode("velesvj7kcklujarx.onion:25521", "onetry")
         cmd = proxies[2].queue.get()
         assert(isinstance(cmd, Socks5Command))
         assert_equal(cmd.atyp, AddressType.DOMAINNAME)
         assert_equal(cmd.addr, "velesvj7kcklujarx.onion")
-        assert_equal(cmd.port, 6250)
+        assert_equal(cmd.port, 25521)
         if not auth:
             assert_equal(cmd.username, None)
             assert_equal(cmd.password, None)

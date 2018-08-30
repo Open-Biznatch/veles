@@ -226,10 +226,10 @@ QT_TRANSLATE_NOOP("veles-core", ""
 QT_TRANSLATE_NOOP("veles-core", ""
 "You must specify a masternodeprivkey in the configuration. Please see "
 "documentation for help."),
-QT_TRANSLATE_NOOP("veles-core", "(6250 could be used only on mainnet)"),
+QT_TRANSLATE_NOOP("veles-core", "(25521 could be used only on mainnet)"),
 QT_TRANSLATE_NOOP("veles-core", "(default: %s)"),
 QT_TRANSLATE_NOOP("veles-core", "(default: 1)"),
-QT_TRANSLATE_NOOP("veles-core", "(must be 6250 for mainnet)"),
+QT_TRANSLATE_NOOP("veles-core", "(must be 25521 for mainnet)"),
 QT_TRANSLATE_NOOP("veles-core", "<category> can be:"),
 QT_TRANSLATE_NOOP("veles-core", "Accept command line and JSON-RPC commands"),
 QT_TRANSLATE_NOOP("veles-core", "Accept connections from outside (default: 1 if no -proxy or -connect)"),
