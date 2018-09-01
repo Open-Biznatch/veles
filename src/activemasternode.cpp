@@ -12,7 +12,7 @@
 #include "spork.h"
 
 //
-// Bootup the Masternode, look for a 1200 VLS input and register on the network
+// Bootup the Masternode, look for a 2000 VLS input and register on the network
 //
 void CActiveMasternode::ManageStatus()
 {
@@ -273,13 +273,13 @@ bool CActiveMasternode::Register(std::string strService, std::string strKeyMaste
     CService service = CService(strService);
     int mainnetDefaultPort = Params(CBaseChainParams::MAIN).GetDefaultPort();
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
-        if (strService.GetPort() != mainnetDefaultPort) {
-            errorMessage = strprintf("Invalid port: %u - only %d is supported on mainnet.", strService.GetPort(), mainnetDefaultPort);
+        if (service.GetPort() != mainnetDefaultPort) {
+            errorMessage = strprintf("Invalid port: %u - only %d is supported on mainnet.", service.GetPort(), mainnetDefaultPort);
             LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", errorMessage);
             return false;
         }
-    } else if (strService.GetPort() == mainnetDefaultPort) {
-        errorMessage = strprintf("Invalid port: %u - %d is only supported on mainnet.", strService.GetPort(), mainnetDefaultPort);
+    } else if (service.GetPort() == mainnetDefaultPort) {
+        errorMessage = strprintf("Invalid port: %u - %d is only supported on mainnet.", service.GetPort(), mainnetDefaultPort);
         LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", errorMessage);
         return false;
     }
