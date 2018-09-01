@@ -269,13 +269,13 @@ bool CActiveMasternode::Register(std::string strService, std::string strKeyMaste
     CService service = CService(strService);
     int mainnetDefaultPort = Params(CBaseChainParams::MAIN).GetDefaultPort();
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
-        if (service.GetPort() != mainnetDefaultPort) {
-            errorMessage = strprintf("Invalid port: %u - only %d is supported on mainnet.", service.GetPort(), mainnetDefaultPort);
+        if (strService.GetPort() != mainnetDefaultPort) {
+            errorMessage = strprintf("Invalid port: %u - only %d is supported on mainnet.", strService.GetPort(), mainnetDefaultPort);
             LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", errorMessage);
             return false;
         }
-    } else if (service.GetPort() == mainnetDefaultPort) {
-        errorMessage = strprintf("Invalid port: %u - %d is only supported on mainnet.", service.GetPort(), mainnetDefaultPort);
+    } else if (strService.GetPort() == mainnetDefaultPort) {
+        errorMessage = strprintf("Invalid port: %u - %d is only supported on mainnet.", strService.GetPort(), mainnetDefaultPort);
         LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", errorMessage);
         return false;
     }
