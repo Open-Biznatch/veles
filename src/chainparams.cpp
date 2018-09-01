@@ -152,12 +152,12 @@ public:
             merkle hash: 61cec95162d141df8ddbad7b5026e6f22c4ea795930b1d94d584a6c29f143542
             pszTimestamp: Veles started from a bottom - Aug 30, 2018
             pubkey: 04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1
-            time: 1535666264
+            time: 1535814434
             bits: 0x1e0ffff0
-            nonce: 201746
-            genesis hash: 0000017d88681d790f7e041b977c87f111c69aa70d9b7564908ebf96cd736b1f
+            nonce: 382690
+            genesis hash: 00000ae9055a2d9bce6f37e51bc81f5af463a54c96e629b1001e735e035e9081
 
-            python gen.py -a quark -t 1535666264 -z "Veles started from a bottom - Aug 30, 2018" -p "04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1" -v 100000000
+            python gen.py -a quark -t 1535814434 -z "Veles started from a bottom - Aug 30, 2018" -p "04d5bdcc0bd35633be59315b935c93d3adb22a5f8ef5f2c3494c1d6e1dae98e7eec03c78c9bcc719f2dec4a2adc92801e803803914b7498074dba8defaa38bead1" -v 100000000
          *
         **/
 
@@ -172,12 +172,12 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1535666264;
+        genesis.nTime = 1535814434;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 201746;
+        genesis.nNonce = 382690;
 		
 		hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0000017d88681d790f7e041b977c87f111c69aa70d9b7564908ebf96cd736b1f"));
+        assert(hashGenesisBlock == uint256("00000ae9055a2d9bce6f37e51bc81f5af463a54c96e629b1001e735e035e9081"));
         assert(genesis.hashMerkleRoot == uint256("61cec95162d141df8ddbad7b5026e6f22c4ea795930b1d94d584a6c29f143542"));
 		
 		//vSeeds.push_back(CDNSSeedData("seeds.veles.org", "seeds.veles.org")); // Seeder

@@ -12,7 +12,7 @@
 #include "spork.h"
 
 //
-// Bootup the Masternode, look for a 2000 VLS input and register on the network
+// Bootup the Masternode, look for a 1200 VLS input and register on the network
 //
 void CActiveMasternode::ManageStatus()
 {
