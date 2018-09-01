@@ -67,16 +67,21 @@ void CActiveMasternode::ManageStatus()
             service = CService(strMasterNodeAddr);
         }
 
+        CService service = CService(strService);
         int mainnetDefaultPort = Params(CBaseChainParams::MAIN).GetDefaultPort();
-        if (Params().NetworkID() == CBaseChainParams::MAIN) {
-            if (service.GetPort() != mainnetDefaultPort) {
-                notCapableReason = strprintf("Invalid port: %u - only %d is supported on mainnet.", service.GetPort(), mainnetDefaultPort);
-                LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", notCapableReason);
+        if (Params().NetworkID() == CBaseChainParams::MAIN)
+        {
+            if (service.GetPort() != mainnetDefaultPort)
+            {
+                errorMessage = strprintf("Invalid port: %u - only %d is supported on mainnet.", service.GetPort(), mainnetDefaultPort);
+                LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", errorMessage);
                 return;
             }
-        } else if (service.GetPort() == mainnetDefaultPort) {
-            notCapableReason = strprintf("Invalid port: %u - %d is only supported on mainnet.", service.GetPort(), mainnetDefaultPort);
-            LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", notCapableReason);
+        }
+        else if (service.GetPort() == mainnetDefaultPort)
+        {
+            errorMessage = strprintf("Invalid port: %u - %d is only supported on mainnet.", service.GetPort(), mainnetDefaultPort);
+            LogPrintf("CActiveMasternode::ManageStatus() - not capable: %s\n", errorMessage);
             return;
         }
 
