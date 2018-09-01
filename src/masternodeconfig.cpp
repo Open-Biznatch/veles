@@ -22,6 +22,7 @@ void CMasternodeConfig::add(std::string alias, std::string ip, std::string privK
 bool CMasternodeConfig::read(std::string& strErr)
 {
     int linenumber = 1;
+    std::string mainnetDefaultPort = std::to_string(Params(CBaseChainParams::MAIN).GetDefaultPort());
     boost::filesystem::path pathMasternodeConfigFile = GetMasternodeConfigFile();
     boost::filesystem::ifstream streamConfig(pathMasternodeConfigFile);
 
@@ -30,12 +31,13 @@ bool CMasternodeConfig::read(std::string& strErr)
         if (configFile != NULL) {
             std::string strHeader = "# Masternode config file\n"
                                     "# Format: alias IP:port masternodeprivkey collateral_output_txid collateral_output_index\n"
-                                    "# Example: mn1 127.0.0.2:25521 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c 0\n";
+                                    "# Example: mn1 127.0.0.2:" + mainnetDefaultPort + " 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c 0\n";
             fwrite(strHeader.c_str(), std::strlen(strHeader.c_str()), 1, configFile);
             fclose(configFile);
         }
         return true; // Nothing to read, so just return
     }
+
 
     for (std::string line; std::getline(streamConfig, line); linenumber++) {
         if (line.empty()) continue;
@@ -69,8 +71,6 @@ bool CMasternodeConfig::read(std::string& strErr)
             streamConfig.close();
             return false;
         }
-
-        int mainnetDefaultPort = Params(CBaseChainParams::MAIN).GetDefaultPort();
 
         if (Params().NetworkID() == CBaseChainParams::MAIN)
         {
