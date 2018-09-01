@@ -67,7 +67,6 @@ void CActiveMasternode::ManageStatus()
             service = CService(strMasterNodeAddr);
         }
 
-        CService service = CService(strService);
         int mainnetDefaultPort = Params(CBaseChainParams::MAIN).GetDefaultPort();
         if (Params().NetworkID() == CBaseChainParams::MAIN)
         {
