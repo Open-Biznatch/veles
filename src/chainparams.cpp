@@ -123,8 +123,8 @@ public:
         nLastPOWBlock = 200;
         nModifierUpdateBlock = 9999999;
         nZerocoinStartHeight = 1010;
-        nAccumulatorStartHeight = 1000;
-        nZerocoinStartTime = 1535990080; // Time (GMT): Thursday, 10 May 2018 13:19:53 - (Accumulator start time - requires block height 40000)
+        nAccumulatorStartHeight = 1000; 
+        nZerocoinStartTime = 1536001253; // Monday, September 3, 2018 7:00:53 PM
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = ~1; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = ~1; //First block that bad serials emerged
